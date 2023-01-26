@@ -1,0 +1,11 @@
+[Unit]
+Description=smtp-saver
+After=network.target
+
+[Service]
+ExecStart=/path/to/script/.venv/bin/python -u /path/to/script/smtp-saver.py /path/to/config/smtp-saver.json
+User=web-cloud
+SyslogIdentifier=smtp-saver
+
+[Install]
+WantedBy=multi-user.target
