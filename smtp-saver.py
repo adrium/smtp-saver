@@ -23,19 +23,17 @@ class CustomSMTPHandler:
 		info['return-path'] = envelope.mail_from
 		info['x-original-to'] = envelope.rcpt_tos[0]
 		print(config['log-mail'].format(**info))
-		if (info['x-original-to'] in config['recipients']):
-			rcptconfig = config['recipients'][info['x-original-to']]
-			for part in msg.walk():
-				fn = part.get_filename()
-				if fn:
-					info['filename'] = hdrparse(fn)
-					info['fullname'] = rcptconfig['fullname'].format(**info)
-					print(config['log-file'].format(**info))
-					with open(info['fullname'], 'wb') as f:
-						f.write(part.get_payload(decode = True))
-					system(rcptconfig['command'] + ' ' + quote(info['fullname']))
-		else:
-			print('No config for: ' + info['x-original-to'])
+		rcptconfig = config['recipients'][info['x-original-to']]
+		for part in msg.walk():
+			fn = part.get_filename()
+			if fn:
+				info['filename'] = hdrparse(fn)
+				info['fullname'] = rcptconfig['fullname'].format(**info)
+				print(config['log-file'].format(**info))
+				with open(info['fullname'], 'wb') as f:
+					f.write(part.get_payload(decode = True))
+				infoq = { k: quote(str(v)) for k, v in info.items() }
+				system(rcptconfig['command'].format(**infoq))
 		return '250 OK'
 
 config = loadJson(argv[1])

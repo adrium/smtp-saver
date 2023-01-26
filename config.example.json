@@ -6,7 +6,7 @@
 	, "recipients": {
 		"inbox@example.com": {
 			"fullname": "/data/nextcloud/john/files/Inbox/{now:%Y-%m-%d_%H%M%S}-{filename}"
-			, "command": "/data/nextcloud/post-delivery-script-john"
+			, "command": "/data/nextcloud/post-delivery-script-john {fullname}"
 		}
 	}
 }
