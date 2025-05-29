@@ -1,7 +1,5 @@
 {
-	"host": "127.0.0.1"
-	, "port": 9025
-	, "log-mail": "Mail from {from} to {x-original-to} id {message-id}"
+	"log-mail": "Mail from {from} to {x-original-to} id {message-id}"
 	, "log-file": "Saved to {fullname}"
 	, "recipients": {
 		"inbox@example.com": {

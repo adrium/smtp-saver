@@ -3,7 +3,9 @@ Description=smtp-saver
 After=network.target
 
 [Service]
-ExecStart=/path/to/script/.venv/bin/python -u /path/to/script/smtp-saver.py /path/to/config/smtp-saver.json
+WorkingDirectory=/path/to/files
+Environment=SMTP_SAVER_CONFIG=config.json
+ExecStart=/path/to/.venv/bin/python -u -m aiosmtpd -n -c smtpsaver.Handler
 User=web-cloud
 SyslogIdentifier=smtp-saver
 
